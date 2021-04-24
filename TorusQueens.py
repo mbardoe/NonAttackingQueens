@@ -26,6 +26,15 @@ class TorusQueens:
 		
 	def __repr__(self):
 		#self.positions.sort()
+		## Change the positions so that we are always putting first
+		## position at (0,0)
+		##if len(self.positions)>1:
+		##	startingPos=self.positions[0]
+		##	xoffset=startingPos[0]
+		##	yoffset=startingPos[1]
+		##	alteredPos=[(0,0)]
+
+
 		return str(self.dimension)+str(self.positions)
 
 	def placeQueen(self, pos):	
@@ -86,7 +95,8 @@ class TorusQueens:
 			self.value=self.mex(sum(self.subValues,[]))
 
 if __name__ == "__main__":
-	pos=[(0,0)]
+	#pos=[(0,0)]
+	pos=[]
 	game=TorusQueens(10,positions=pos)
 	print(game.positions)
 	print(game)
