@@ -7,7 +7,7 @@ class Board:
 	def __init__(self, winWidth, dimension):
 		self.dimension=dimension
 		self.width=winWidth
-		self.window=GraphWin("Torus Queens", self.width, self.width)
+		self.window=GraphWin("Torus Queens", self.width, self.width+200)
 		self.cellSize=int(winWidth/dimension)
 		self.cells=[]
 		for i in range(self.dimension):
@@ -16,8 +16,26 @@ class Board:
 				self.cells.append(newCell)
 		self.positions=[]
 		self.solution=TorusQueens(self.dimension, positions=self.positions)
+		self.createRestart()
 
+	def restart(self):
+		self.positions=[]
+		self.solution=TorusQueens(self.dimension, positions=self.positions)
+		self.boardUpdate()
 		
+	def createRestart(self):
+		#print("Here")
+		p1=Point(100, self.width+50)
+		p2=Point(200, self.width+100)
+		self.restartrect=Rectangle(p1,p2)
+		self.restartrect.setWidth(4)
+		self.restartrect.setFill("black")
+		self.restartrect.setOutline("white")
+		restarttext=Text(Point(150,self.width+75), "RESTART")
+		restarttext.setSize(int(14))
+		restarttext.setTextColor("red")
+		self.restartrect.draw(self.window)
+		restarttext.draw(self.window)
 
 	def getCellByLabel(self, i, j):
 		return self.cells[j*self.dimension+i]
@@ -33,6 +51,7 @@ class Board:
 		if value=="X":
 			cell.activate()
 		else:
+			cell.deactivate()
 			cell.setText(str(value))
 
 	def show(self):
@@ -58,13 +77,25 @@ class Board:
 		while True:
 			clickPoint=self.window.getMouse()
 			#print(clickPoint)
-			coords=self.getCoordByPoint(clickPoint)
-			#print(coords)
-			self.positions.append(coords)
+			#print(self.restartrect.getP2())
+			#print(self.restartrect.getP1())
+			if (clickPoint.getY()<self.restartrect.getP2().getY() and 
+				clickPoint.getY()>self.restartrect.getP1().getY() and
+				clickPoint.getX()<self.restartrect.getP2().getX() and
+				clickPoint.getX()>self.restartrect.getP1().getX()):
+				#print("RESTART")
+				self.restart()
+			elif clickPoint.getY()<self.width:
 
-			self.solution=TorusQueens(self.dimension, positions=self.positions)
-			print(self.solution)
-			self.boardUpdate()
+				#print(clickPoint)
+				coords=self.getCoordByPoint(clickPoint)
+				#print(coords)
+				self.positions.append(coords)
+
+				self.solution=TorusQueens(self.dimension, positions=self.positions)
+				#print(self.solution)
+				self.boardUpdate()
+
 
 
 			
