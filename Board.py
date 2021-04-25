@@ -4,7 +4,7 @@ from BoardQueens import *
 
 class Board:
 	
-	def __init__(self, winWidth, dimension):
+	def __init__(self, winWidth, dimension, positions=[]):
 		self.dimension=dimension
 		self.width=winWidth
 		self.window=GraphWin("Board Queens", self.width, self.width+200)
@@ -14,7 +14,7 @@ class Board:
 			for j in range(self.dimension):
 				newCell=Cell(self.window, j*self.cellSize, i*self.cellSize, self.cellSize)
 				self.cells.append(newCell)
-		self.positions=[]
+		self.positions=positions
 		self.solution=BoardQueens(self.dimension, positions=self.positions)
 		self.createRestart()
 
@@ -101,6 +101,6 @@ class Board:
 			
 
 if __name__ == "__main__":
-	bd=Board(600, 8)
+	bd=Board(600, 7,[(0,0)])
 	bd.run()
 	

@@ -19,7 +19,7 @@ class Cell:
 		textPos=self.pt.clone()
 		textPos.move(self.size/2, self.size/2)
 		self.text=Text(textPos, text)
-		self.text.setSize(int(self.size/6))
+		self.text.setSize(int(self.size/4))
 		self.text.setTextColor("red")
 		
 

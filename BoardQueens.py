@@ -1,4 +1,5 @@
 import copy
+from BoardData import *
 global_cache = {}
 
 class BoardQueens:
@@ -13,7 +14,9 @@ class BoardQueens:
 			#print("Found it")
 			x=global_cache[self.__repr__()]
 			#print(x)
-			self.moves=x.moves
+			self.moves=[[False for j in range(self.dimension)] for i in range(self.dimension)]
+			for pos in self.positions:
+				self.placeQueen(pos)
 			self.subValues=x.subValues
 			self.value=x.value
 		else:
@@ -22,7 +25,8 @@ class BoardQueens:
 				self.placeQueen(pos)
 			self.subValues=[]
 			self.calcSubValues()
-			global_cache[self.__repr__()]=copy.deepcopy(self)
+			x=BoardData(self.subValues, self.value)
+			global_cache[self.__repr__()]=copy.deepcopy(x)
 		
 	def __repr__(self):
 		#self.positions.sort()
