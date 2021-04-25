@@ -1,13 +1,13 @@
 from graphics import *
 from Cell import *
-from TorusQueens import *
+from BoardQueens import *
 
 class Board:
 	
 	def __init__(self, winWidth, dimension):
 		self.dimension=dimension
 		self.width=winWidth
-		self.window=GraphWin("Torus Queens", self.width, self.width+200)
+		self.window=GraphWin("Board Queens", self.width, self.width+200)
 		self.cellSize=int(winWidth/dimension)
 		self.cells=[]
 		for i in range(self.dimension):
@@ -15,12 +15,12 @@ class Board:
 				newCell=Cell(self.window, j*self.cellSize, i*self.cellSize, self.cellSize)
 				self.cells.append(newCell)
 		self.positions=[]
-		self.solution=TorusQueens(self.dimension, positions=self.positions)
+		self.solution=BoardQueens(self.dimension, positions=self.positions)
 		self.createRestart()
 
 	def restart(self):
 		self.positions=[]
-		self.solution=TorusQueens(self.dimension, positions=self.positions)
+		self.solution=BoardQueens(self.dimension, positions=self.positions)
 		self.boardUpdate()
 		
 	def createRestart(self):
@@ -92,7 +92,7 @@ class Board:
 				#print(coords)
 				self.positions.append(coords)
 
-				self.solution=TorusQueens(self.dimension, positions=self.positions)
+				self.solution=BoardQueens(self.dimension, positions=self.positions)
 				#print(self.solution)
 				self.boardUpdate()
 
